@@ -44,12 +44,12 @@ def train_and_evaluate(config_path):
     train_x = train.drop(target, axis=1)
     test_x = test.drop(target, axis=1)
 
-#     lr = ElasticNet(
-#         alpha=alpha, 
-#         l1_ratio=l1_ratio, 
-#         random_state=random_state)
+    lr = ElasticNet(
+        alpha=alpha, 
+        l1_ratio=l1_ratio, 
+        random_state=random_state)
 
-    lr = LogisticRegression()
+#     lr = LogisticRegression()
     
     lr.fit(train_x, train_y)
 
