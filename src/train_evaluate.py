@@ -49,7 +49,7 @@ def train_and_evaluate(config_path):
         l1_ratio=l1_ratio, 
         random_state=random_state)
 
-#     lr = LogisticRegression()
+    # lr = LogisticRegression()
     
     lr.fit(train_x, train_y)
 
