@@ -10,6 +10,7 @@ import numpy as np
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import ElasticNet
+from sklearn.linear_model import LogisticRegression
 from get_data import read_params
 import argparse
 import joblib
@@ -47,6 +48,9 @@ def train_and_evaluate(config_path):
         alpha=alpha, 
         l1_ratio=l1_ratio, 
         random_state=random_state)
+
+#     lr = LogisticRegression()
+    
     lr.fit(train_x, train_y)
 
     predicted_qualities = lr.predict(test_x)
