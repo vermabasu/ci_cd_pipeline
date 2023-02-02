@@ -23,5 +23,5 @@ jobs:
           
           git fetch --prune
           dvc metrics diff --show-md main > report.md
-          cml-send-comment report.md
+          cml comment create report.md
           
