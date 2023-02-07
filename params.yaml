@@ -18,10 +18,10 @@ estimators:
     ElasticNet:
         params:
             
-#              alpha: 0.9
-#              l1_ratio: 0.4
-            alpha: 0.9
-            l1_ratio: 0.4
+             alpha: 0.4
+             l1_ratio: 0.9
+#             alpha: 0.9
+#             l1_ratio: 0.4
             
         
 model_dir: saved_models
