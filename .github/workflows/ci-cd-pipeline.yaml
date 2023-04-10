@@ -3,24 +3,44 @@
 on: [push]
 
 jobs:
-  model_train_evaluate:
+  CI-Pipeline:
     runs-on: [ubuntu-latest]
+    env:
+      repo_token: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: iterative/setup-cml@v1
-      - uses: iterative/setup-dvc@v1
-      - uses: actions/setup-python@v4
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        
+      - name: Install CML
+        uses: iterative/setup-cml@v1
+        
+      - name: Install DVC
+        uses: iterative/setup-dvc@v1
+        
+      - name: Setup python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.8'
-      - name: 'Train and Evaluate Model'
-        env:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          
+        
+      - name: Install all dependencies
         run: |
-          # Intall all dependencies
           pip install -r requirements.txt
           
-          dvc repro
+      - name: Load Data
+        run: |
+          dvc repro dvc.yaml:load_data
           
+      - name: Split Data
+        run: |
+          dvc repro dvc.yaml:split_data
+          
+      - name: Train and Evaluate
+        run: |
+          dvc repro dvc.yaml:train_and_evaluate
+          
+      - name: Generate Report
+        run: |          
           git fetch --prune
           dvc metrics diff --show-md main > report.md
           cml comment create report.md
